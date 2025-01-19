@@ -47,16 +47,16 @@ func ReadParams() (params Params, err error) {
 
 func printRow(iter int, x float64, pad int) string {
 	r, err := calculator.Run(x)
-	paddedIter := strpad.Right(fmt.Sprintf("%v", iter), pad)
-	paddedX := strpad.Right(fmt.Sprintf("%.6f", x), pad)
+	paddedIter := strpad.Left(fmt.Sprintf("%v", iter), pad-4)
+	paddedX := strpad.Right(strpad.TrimFloat(fmt.Sprintf("%.5f", x)), pad)
 
 	if err != nil {
-		return fmt.Sprintf("%v | %v | ERROR", paddedIter, paddedX)
+		return fmt.Sprintf("%s | %s | ERROR", paddedIter, paddedX)
 	}
 
-	paddedR := strpad.Right(fmt.Sprintf("%.6f", r), pad)
+	paddedR := strpad.Right(strpad.TrimFloat(fmt.Sprintf("%.5f", r)), pad)
 
-	return fmt.Sprintf("%v | %v | %v |", paddedIter, paddedX, paddedR)
+	return fmt.Sprintf("%s | %s | %s", paddedIter, paddedX, paddedR)
 }
 
 func shouldRun(params Params, x float64) bool {
@@ -71,10 +71,10 @@ func Print(params Params) {
 	maxFlag := math.Max(params.start, params.end)
 	maxColLen := len(fmt.Sprintf("%v", maxFlag)) + 4
 	tableHead := fmt.Sprintf(
-		"%s | %s | %s |",
-		strpad.Right("#", maxColLen),
+		"%s | %s | %s ",
+		strpad.Left("#", maxColLen-4),
 		strpad.Right("x", maxColLen),
-		strpad.Right("result", maxColLen),
+		"result",
 	)
 	fmt.Println(tableHead)
 	fmt.Println(strings.Repeat("—", len(tableHead)))

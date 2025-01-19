@@ -1,4 +1,4 @@
-package cmd
+package main
 
 import "github.com/bobopylabepolhk/sbpstu-algo-1/internal/output"
 
