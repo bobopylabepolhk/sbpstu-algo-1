@@ -23,6 +23,11 @@ func Left(str string, pad int) string {
 	return fmt.Sprintf("%s%s", whitespace, str)
 }
 
+func Fill(str string, length int) string {
+	whitespace := strings.Repeat(" ", length-len(str))
+	return fmt.Sprintf("%s%s", str, whitespace)
+}
+
 func TrimFloat(str string) string {
 	return strings.TrimRight(strings.TrimRight(str, "0"), ".")
 }
